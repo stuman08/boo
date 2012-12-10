@@ -104,6 +104,7 @@ namespace Boo.Lang.Compiler.Ast.Visitors
 			Write("StringLiteralExpression(");
 			BooPrinterVisitor.WriteStringLiteral(node.Value, _writer);
 			Write(")");
-		}
+		}		
+			
 	}
 }

@@ -30,6 +30,7 @@ namespace Boo.Microsoft.Build.Tasks
 
 import System
 import System.IO
+import System.Collections.Generic
 import System.Text.RegularExpressions
 import Microsoft.Build.Utilities
 import Microsoft.Build.Framework
@@ -236,12 +237,19 @@ class Booc(ToolTask):
                     "Verbosity",
                     Verbosity,
                     "Normal, Warning, Info, Verbose")
-
-        commandLine.AppendFileNamesIfNotNull(Sources, " ")
-
+                    
+        #srcs = List[of ITaskItem](Sources)
+        #if srcs.Count >= 2:
+        #	srcs.RemoveAt(srcs.Count-1)
+        
+        #arr as (ITaskItem) = srcs.ToArray()
+        #commandLine.AppendFileNamesIfNotNull(arr, " ")
+        
+        commandLine.AppendFileNamesIfNotNull(Sources, " ")        
+        
         return commandLine.ToString()
-
-    # Captures the file, line, column, code, and message from a BOO warning
+        	
+	# Captures the file, line, column, code, and message from a BOO warning
     # in the form of: Program.boo(1,1): BCW0000: WARNING: This is a warning.
     private warningPattern = Regex(
             "^(?<file>.*?)(\\((?<line>\\d+),(?<column>\\d+)\\):)?" +
